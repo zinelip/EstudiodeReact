@@ -1,36 +1,27 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
-import Componente1 from "./components/Componente1";
+import React, { useState } from "react";
+import SearchInput from "./components/SearchInput";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [spotifyUrl, setSpotifyUrl] = useState(null);
+
+  const handleSpotifyUrl = (url) => {
+    setSpotifyUrl(url);
+    console.log("URL recibida:", url);
+    // Aquí después vamos a extraer el ID y llamar a la API
+  };
+
+  const appStyle = {
+    height: "100vh", // altura completa viewport
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-        <Componente1 />
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div style={appStyle}>
+      {!spotifyUrl && <SearchInput onSubmit={handleSpotifyUrl} />}
+      {/* Después aquí va el reproductor */}
+    </div>
   );
 }
 
