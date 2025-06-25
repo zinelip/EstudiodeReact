@@ -2,20 +2,38 @@ import React, { useState } from "react";
 
 const SearchInput = ({ onSubmit }) => {
   const [url, setUrl] = useState("");
+  const [token, setToken] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!url.includes("spotify.com/track/")) {
+
+    if (!token.trim()) {
+      alert("Por favor, ingresa tu token de Spotify.");
+      return;
+    }
+
+    const match = url.match(/spotify\.com\/(?:[\w-]+\/)?track\/([a-zA-Z0-9]+)/);
+    if (!match) {
       alert("Por favor, pega un enlace válido de una canción de Spotify.");
       return;
     }
-    onSubmit(url);
+
+    const trackId = match[1];
+    onSubmit({ trackId, token });
     setUrl("");
   };
 
   return (
     <div style={styles.container}>
       <form onSubmit={handleSubmit} style={styles.form}>
+        <label style={styles.label}>Token de Spotify</label>
+        <input
+          type="text"
+          placeholder="Tu token de acceso"
+          value={token}
+          onChange={(e) => setToken(e.target.value)}
+          style={styles.input}
+        />
         <label style={styles.label}>¿Qué quieres escuchar?</label>
         <input
           type="text"
@@ -34,7 +52,6 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     width: "100%",
-    // marginTop eliminado para centrar verticalmente
   },
   form: {
     backgroundColor: "#ddd",

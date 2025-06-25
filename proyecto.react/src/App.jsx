@@ -1,17 +1,9 @@
-import React, { useState } from "react";
-import SearchInput from "./components/SearchInput";
+import React from "react";
+import MusicPlayer from "./components/MusicPlayer";
 
 function App() {
-  const [spotifyUrl, setSpotifyUrl] = useState(null);
-
-  const handleSpotifyUrl = (url) => {
-    setSpotifyUrl(url);
-    console.log("URL recibida:", url);
-    // Aquí después vamos a extraer el ID y llamar a la API
-  };
-
   const appStyle = {
-    height: "100vh", // altura completa viewport
+    height: "100vh",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -19,8 +11,7 @@ function App() {
 
   return (
     <div style={appStyle}>
-      {!spotifyUrl && <SearchInput onSubmit={handleSpotifyUrl} />}
-      {/* Después aquí va el reproductor */}
+      <MusicPlayer />
     </div>
   );
 }
