@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
+import StartScreen from "./components/StartScreen";
 import MusicPlayer from "./components/MusicPlayer";
 
 function App() {
-  const appStyle = {
-    height: "100vh",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  };
+  const [hasStarted, setHasStarted] = useState(false);
 
   return (
-    <div style={appStyle}>
-      <MusicPlayer />
+    <div style={{ height: "100vh", backgroundColor: "#2e104d" }}>
+      {hasStarted ? (
+        <MusicPlayer />
+      ) : (
+        <StartScreen onConfirm={() => setHasStarted(true)} />
+      )}
     </div>
   );
 }

@@ -1,74 +1,37 @@
-import React, { useState } from "react";
-import SearchInput from "./SearchInput";
+import { useEffect } from "react";
 
-const MusicPlayer = () => {
-  const [track, setTrack] = useState(null);
-
-  const fetchTrack = async ({ trackId, token }) => {
-    console.log("Recibí el ID en MusicPlayer:", trackId);
-
-    const res = await fetch(`https://api.spotify.com/v1/tracks/${trackId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (!res.ok) {
-      alert("No se pudo cargar la canción.");
-      return;
-    }
-
-    const data = await res.json();
-    console.log("Datos de la canción:", data);
-
-    setTrack({
-      title: data.name,
-      artist: data.artists[0].name,
-      image: data.album.images[0].url,
-    });
-  };
+export default function MusicPlayer() {
+  useEffect(() => {
+    window.open(
+      "https://music.youtube.com/playlist?list=PLzy2UMqbNzHW_BNfMoyxD3z-8gi-BLCD-&si=R31YU9GIvWY_6YrV",
+      "_blank"
+    );
+  }, []);
 
   return (
-    <div>
-      <SearchInput onSubmit={fetchTrack} />
-      {track && (
-        <div style={styles.container}>
-          <img src={track.image} alt={track.title} style={styles.image} />
-          <div style={styles.text}>
-            <h2 style={styles.title}>{track.title}</h2>
-            <p style={styles.artist}>{track.artist}</p>
-          </div>
-        </div>
-      )}
+    <div style={styles.container}>
+      <h1 style={styles.title}>Enjoy your playlist 🎶</h1>
+      <p style={styles.text}>We opened it in a new tab for you.</p>
     </div>
   );
-};
+}
 
 const styles = {
   container: {
-    marginTop: "40px",
-    textAlign: "center",
-  },
-  image: {
-    width: "300px",
-    height: "300px",
-    objectFit: "cover",
-    borderRadius: "10px",
-    boxShadow: "0 10px 30px rgba(0, 0, 0, 0.3)",
-  },
-  text: {
-    marginTop: "20px",
+    height: "100vh",
+    backgroundColor: "#1b0f2f",
+    color: "#fff",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
   },
   title: {
-    fontSize: "24px",
-    fontWeight: "bold",
-    textTransform: "uppercase",
-    marginBottom: "5px",
+    fontSize: "2rem",
+    marginBottom: "1rem",
   },
-  artist: {
-    fontSize: "18px",
-    color: "#444",
+  text: {
+    fontSize: "1.2rem",
+    color: "#ccc",
   },
 };
-
-export default MusicPlayer;
